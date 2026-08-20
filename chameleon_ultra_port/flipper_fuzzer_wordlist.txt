@@ -1,0 +1,187 @@
+# =============================================================================
+#  Wordlista UID wyciagnieta z aplikacji "Multi Fuzzer" dla Flipper Zero
+#  Zrodlo: lib/worker/protocol.c  (tablice zaszyte na sztywno w kodzie C)
+#
+#  Format: jedna linia = jeden UID zapisany w HEX (bez spacji, wielkie litery).
+#  Linie zaczynajace sie od '#' sa komentarzami (tak jak w oryginalnym workerze
+#  Flippera: fuzzer_worker.c pomija linie zaczynajace sie od '#').
+#
+#  UWAGA o przenosnosci na Chameleon Ultra:
+#   - Sekcja EM4100 (5 bajtow) -> emulacja LF EM410x na Chameleon Ultra (bezposrednio).
+#   - Sekcja 4BYTE (4 bajty)   -> uzyteczna jako UID dla HF MIFARE Classic (4-bajtowy
+#                                 UID). ATQA/SAK NIE wystepuja w kodzie Flippera,
+#                                 wiec skrypt dokleja domyslne wartosci MIFARE 1K.
+#   - iButton (DS1990/Cyfral/Metakom) to protokoly Dallas 1-Wire, ktorych
+#                                 Chameleon Ultra nie emuluje - zalaczone tylko
+#                                 jako kompletny zrzut danych zrodlowych.
+# =============================================================================
+
+# ----------------------------------------------------------------------------
+# EM4100 / RFID 125kHz - 5 bajtow  (uid_list_5byte)  --> LF EM410x na Chameleon
+# ----------------------------------------------------------------------------
+#EM4100
+0000000000
+FFFFFFFFFF
+1111111111
+2222222222
+3333333333
+4444444444
+5555555555
+6666666666
+7777777777
+8888888888
+9999999999
+123456789A
+9A78563412
+04D09B0D6A
+3400293D9E
+04DF000001
+CACACACACA
+
+# ----------------------------------------------------------------------------
+# Generic 4 bajty  (uid_list_4byte)  --> UID dla HF MIFARE Classic 4B
+# (uzywane przez Flippera dla PAC/Stanley, IoProxXSF, Indala26, Viking,
+#  Pyramid, Keri; tu przydatne jako baza 4-bajtowych UID MIFARE)
+# ----------------------------------------------------------------------------
+#4BYTE
+00000000
+FFFFFFFF
+11111111
+22222222
+33333333
+44444444
+55555555
+66666666
+77777777
+88888888
+99999999
+12345678
+9A785634
+04D09B0D
+3400293D
+04DF0000
+CACACACA
+
+# ----------------------------------------------------------------------------
+# Generic 3 bajty  (uid_list_3byte)  --> H10301 na Flipperze
+# ----------------------------------------------------------------------------
+#3BYTE
+000000
+FFFFFF
+111111
+222222
+333333
+444444
+555555
+666666
+777777
+888888
+999999
+123456
+563412
+CACACA
+
+# ----------------------------------------------------------------------------
+# Generic 6 bajtow (uid_list_6byte) --> HIDProx / Paradox na Flipperze
+# ----------------------------------------------------------------------------
+#6BYTE
+000000000000
+FFFFFFFFFFFF
+111111111111
+222222222222
+333333333333
+444444444444
+555555555555
+666666666666
+777777777777
+888888888888
+999999999999
+123456789ABC
+BC9A78563412
+CACACACACACA
+
+# ----------------------------------------------------------------------------
+# Generic 8 bajtow (uid_list_8byte) --> Electra/Idteck/Gallagher/Nexwatch
+# ----------------------------------------------------------------------------
+#8BYTE
+0000000000000000
+FFFFFFFFFFFFFFFF
+1111111111111111
+2222222222222222
+3333333333333333
+4444444444444444
+5555555555555555
+6666666666666666
+7777777777777777
+8888888888888888
+9999999999999999
+123456789ABCDEFF
+FFDEBC9A78563412
+CACACACACACACACA
+
+# ----------------------------------------------------------------------------
+# Metakom - 4 bajty (iButton, NIE emulowane przez Chameleon - tylko zrzut)
+# ----------------------------------------------------------------------------
+#METAKOM
+00000000
+FFFFFFFF
+11111111
+22222222
+33333333
+44444444
+55555555
+66666666
+77777777
+88888888
+99999999
+12345678
+9A785634
+04D09B0D
+3400293D
+04DF0000
+CACACACA
+
+# ----------------------------------------------------------------------------
+# Cyfral - 2 bajty (iButton, NIE emulowane przez Chameleon - tylko zrzut)
+# ----------------------------------------------------------------------------
+#CYFRAL
+0000
+FFFF
+1111
+2222
+3333
+4444
+5555
+6666
+7777
+8888
+9999
+1234
+5634
+CACA
+8EC9
+6A50
+
+# ----------------------------------------------------------------------------
+# DS1990 (Dallas iButton, 8 bajtow z bajtem CRC) - pelny zrzut kluczy
+# "uniwersalnych" domofonowych z protocol.c. NIE emulowane przez Chameleon,
+# zalaczone dla kompletnosci ekstrakcji.
+# ----------------------------------------------------------------------------
+#DS1990
+01BE40115A3600E1
+01BE40115A5600BB
+01BE401100000077
+01BE40110A00001D
+01FFFFFFFFFFFF2F
+01FFFFFFFF00009B
+FFFFFFFFFFFFFF14
+01000000009019FF
+016F2E888A00004D
+0153D4FE00007E88
+0153D4FE0000006F
+010000000000003D
+0100BE11AA0000FB
+0176B82E0F00005C
+0000000000000000
+01780048FDFFFFD1
+01A9E43C090000E6
